@@ -17,16 +17,17 @@ RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ItemsViewModel = mList[position]
-        holder.imageView.setImageResource(ItemsViewModel.image)
-        holder.textView.text = ItemsViewModel.text
+        val itemsViewModel = mList[position]
+        holder.imageView.setImageResource(itemsViewModel.image)
+        holder.textView.text = itemsViewModel.text
     }
 
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageview)
         val textView:TextView = itemView.findViewById(R.id.textView)
     }

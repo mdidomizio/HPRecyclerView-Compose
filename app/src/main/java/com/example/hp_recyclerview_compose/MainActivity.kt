@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,22 +17,16 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         val data = ArrayList<ItemsViewModel>()
 
-        for (i in 1..20) {
+        for (i in 1..150) {
             data.add(ItemsViewModel(R.drawable.ic_baseline_folder_shared_24, "Item $i"))
 
             val adapter = CustomAdapter(data)
 
             recyclerView.adapter = adapter
         }
-
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }*/
-
-}}
+    }
+}

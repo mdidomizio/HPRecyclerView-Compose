@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         val data = ArrayList<HarryPotterData>()
-        data.add(HarryPotterData(image = , name = ))
+       //TODO check how to set this part
+        // data.add(HarryPotterData(image = , name = ))
 
         /*for (i in 1..150) {
             data.add(HarryPotterData(R.drawable.ic_baseline_folder_shared_24, "Item $i"))*/

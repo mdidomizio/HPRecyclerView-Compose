@@ -1,7 +1,5 @@
 package com.example.hp_recyclerview_compose
 
-import android.net.Uri
-
 data class HarryPotterData(
     val actor: String,
     val alive: Boolean,
@@ -16,7 +14,7 @@ data class HarryPotterData(
     val hogwartsStudent: Boolean,
     val house: String,
     val id: String,
-    val image: Uri,
+    val image: String,
     val name: String,
     val patronus: String,
     val species: String,

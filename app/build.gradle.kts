@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -45,4 +44,23 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Retrofit for network requests
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
+    // Coroutines for asynchronous programming
+    implementation (libs.kotlinx.coroutines.android)
+
+    // coil for pics from url
+    implementation (libs.coil.compose)
+
+    // splash screen
+    implementation(libs.androidx.core.splashscreen)
+
+    // for adding recyclerview
+    implementation (libs.androidx.recyclerview)
+
+    // for adding cardview
+    implementation (libs.androidx.cardview)
 }

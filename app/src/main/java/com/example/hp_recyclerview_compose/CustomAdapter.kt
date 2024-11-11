@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapter (private val mList: List<ItemsViewModel>) :
+class CustomAdapter (private val mList: List<HarryPotterData>) :
 RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,8 +19,8 @@ RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemsViewModel = mList[position]
-        holder.imageView.setImageResource(itemsViewModel.image)
-        holder.textView.text = itemsViewModel.text
+        holder.imageView.setImageURI(itemsViewModel.image) // TODO check whether it is correct to use URI as type here
+        holder.textView.text = itemsViewModel.name
     }
 
     override fun getItemCount(): Int {

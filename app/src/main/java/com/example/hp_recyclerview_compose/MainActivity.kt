@@ -1,12 +1,8 @@
 package com.example.hp_recyclerview_compose
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -19,14 +15,15 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        val data = ArrayList<ItemsViewModel>()
+        val data = ArrayList<HarryPotterData>()
+        data.add(HarryPotterData(image = , name = ))
 
-        for (i in 1..150) {
-            data.add(ItemsViewModel(R.drawable.ic_baseline_folder_shared_24, "Item $i"))
+        /*for (i in 1..150) {
+            data.add(HarryPotterData(R.drawable.ic_baseline_folder_shared_24, "Item $i"))*/
 
             val adapter = CustomAdapter(data)
 
             recyclerView.adapter = adapter
-        }
+       // }
     }
 }

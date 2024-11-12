@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
-class CustomAdapter (private val mList: List<HarryPotterData>) :
-RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class HarryPotterAdapter (private val mList: List<HarryPotterData>) :
+RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -18,9 +18,9 @@ RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemsViewModel = mList[position]
-        holder.imageView.setImageURI(itemsViewModel.image) // TODO check whether it is correct to use URI as type here
-        holder.textView.text = itemsViewModel.name
+        val harryPotterCharacter = mList[position]
+        Picasso.get().load(harryPotterCharacter.image).into(holder.imageView)
+        holder.textView.text = harryPotterCharacter.name
     }
 
     override fun getItemCount(): Int {

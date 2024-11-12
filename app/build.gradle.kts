@@ -63,6 +63,7 @@ dependencies {
 
     // coil for pics from url
     implementation (libs.coil.compose)
+    implementation (libs.picasso)
 
     // for adding recyclerview
     implementation (libs.androidx.recyclerview)

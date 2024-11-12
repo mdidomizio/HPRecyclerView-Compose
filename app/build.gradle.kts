@@ -61,8 +61,7 @@ dependencies {
     // Coroutines for asynchronous programming
     implementation (libs.kotlinx.coroutines.android)
 
-    // coil for pics from url
-    implementation (libs.coil.compose)
+    // picasso for pics from url
     implementation (libs.picasso)
 
     // for adding recyclerview

@@ -27,7 +27,6 @@ RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
         return mList.size
     }
 
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageview)
         val textView:TextView = itemView.findViewById(R.id.textView)

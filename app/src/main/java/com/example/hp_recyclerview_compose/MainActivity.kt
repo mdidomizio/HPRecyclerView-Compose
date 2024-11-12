@@ -4,27 +4,36 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    val data = ArrayList<HarryPotterData>() //TODO check this part
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.recyclerview.layoutManager =GridLayoutManager(this, 3)
+
+        getAllCharacters()
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //TODO check this part
 
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        val data = ArrayList<HarryPotterData>()
-       //TODO check how to set this part
-        // data.add(HarryPotterData(image = , name = ))
 
         /*for (i in 1..150) {
             data.add(HarryPotterData(R.drawable.ic_baseline_folder_shared_24, "Item $i"))*/
 
-            val adapter = CustomAdapter(data)
+            val adapter = HarryPotterAdapter(data)
 
             recyclerView.adapter = adapter
        // }
+    }
+
+    private fun getAllCharacters() {
+
     }
 }

@@ -27,4 +27,4 @@ data class Wand(
     val core: String,
     val length: Float,
     val wood: String
-)//(val image: Int, val text: String)
+)

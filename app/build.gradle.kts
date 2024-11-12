@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,6 +49,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
     // Retrofit for network requests
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
@@ -55,12 +64,6 @@ dependencies {
     // coil for pics from url
     implementation (libs.coil.compose)
 
-    // splash screen
-    implementation(libs.androidx.core.splashscreen)
-
     // for adding recyclerview
     implementation (libs.androidx.recyclerview)
-
-    // for adding cardview
-    implementation (libs.androidx.cardview)
 }

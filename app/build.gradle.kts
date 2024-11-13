@@ -51,6 +51,9 @@ dependencies {
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx.v262)
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+
     // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
@@ -58,12 +61,15 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
-    // Coroutines for asynchronous programming
-    implementation (libs.kotlinx.coroutines.android)
+    // Coroutines
+    implementation (libs.kotlinx.coroutines.android.v173)
+    implementation (libs.kotlinx.coroutines.core)
 
     // picasso for pics from url
     implementation (libs.picasso)
 
     // for adding recyclerview
     implementation (libs.androidx.recyclerview)
+
+    implementation (libs.androidx.swiperefreshlayout)
 }

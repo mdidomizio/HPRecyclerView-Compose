@@ -6,10 +6,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 
 class HarryPotterAdapter (private val mList: List<HarryPotterData>) :
 RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
+
+
+    /*class ViewHolder (private val binding: ActivityMainBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: HarryPotterData){
+            binding.apply {
+                textView.text = data.name
+                imageView.
+            }
+        }
+
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

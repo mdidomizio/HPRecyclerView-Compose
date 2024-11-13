@@ -6,22 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 
-class HarryPotterAdapter (private val mList: List<HarryPotterData>) :
-RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
-
-
-    /*class ViewHolder (private val binding: ActivityMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: HarryPotterData){
-            binding.apply {
-                textView.text = data.name
-                imageView.
-            }
-        }
-
-    }*/
+class HarryPotterAdapter(private val data: List<HarryPotterData>) :
+    RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,17 +18,17 @@ RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val harryPotterCharacter = mList[position]
+        val harryPotterCharacter = data[position]
         Picasso.get().load(harryPotterCharacter.image).into(holder.imageView)
         holder.textView.text = harryPotterCharacter.name
     }
 
     override fun getItemCount(): Int {
-        return mList.size
+        return data.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageview)
-        val textView:TextView = itemView.findViewById(R.id.textView)
+        val textView: TextView = itemView.findViewById(R.id.textView)
     }
 }

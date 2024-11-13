@@ -1,6 +1,9 @@
 package com.example.hp_recyclerview_compose
 
 data class HarryPotterData(
+    val id: String,
+    val image: String,
+    val name: String,
     val actor: String,
     val alive: Boolean,
     val alternateActors: List<String>,
@@ -13,9 +16,6 @@ data class HarryPotterData(
     val hogwartsStaff: Boolean,
     val hogwartsStudent: Boolean,
     val house: String,
-    val id: String,
-    val image: String,
-    val name: String,
     val patronus: String,
     val species: String,
     val wand: Wand,

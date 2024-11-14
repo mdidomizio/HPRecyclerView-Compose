@@ -1,15 +1,12 @@
 package com.example.hp_recyclerview_compose
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,26 +21,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setRecyclerView()
+        observeViewModel()
+    }
 
-       /* val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)*/
+    private fun observeViewModel() {
+        viewModel.harryPotterData.observe(this) { items ->
+            adapter.updateData(items)
+        }
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
 
-        /*lifecycleScope.launch {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        viewModel.error.observe(this) { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
 
-            val dataService: HarryPotterService by lazy {
-                retrofit.create(HarryPotterService::class.java)
-            }
-            val data = dataService.getData()
-            recyclerView.adapter = HarryPotterAdapter(data)
-        }*/
+        }
     }
 
     private fun setRecyclerView() {
-        binding.recyclerview.apply {
+        binding.recyclerView .apply {
             layoutManager = GridLayoutManager(this@MainActivity,3)
             adapter = this@MainActivity.adapter
         }

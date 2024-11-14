@@ -18,7 +18,7 @@ class HarryPotterViewModel : ViewModel() {
     init {
         fetchApi()
     }
-    fun fetchApi(){
+    private fun fetchApi(){
         viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -31,5 +31,4 @@ class HarryPotterViewModel : ViewModel() {
             }
         }
     }
-
 }

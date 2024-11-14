@@ -1,27 +1,34 @@
 package com.example.hp_recyclerview_compose
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: HarryPotterViewModel by viewModels()
+    private val adapter = HarryPotterAdapter(emptyList())
 
-    private val BASE_URL = "https://hp-api.onrender.com/api/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)
+        setRecyclerView()
 
-        lifecycleScope.launch {
+       /* val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)*/
+
+        /*lifecycleScope.launch {
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -32,6 +39,13 @@ class MainActivity : AppCompatActivity() {
             }
             val data = dataService.getData()
             recyclerView.adapter = HarryPotterAdapter(data)
+        }*/
+    }
+
+    private fun setRecyclerView() {
+        binding.recyclerview.apply {
+            layoutManager = GridLayoutManager(this@MainActivity,3)
+            adapter = this@MainActivity.adapter
         }
     }
 }

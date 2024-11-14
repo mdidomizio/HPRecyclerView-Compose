@@ -1,11 +1,8 @@
 package com.example.hp_recyclerview_compose
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 
 
@@ -13,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: HarryPotterViewModel by viewModels()
     private val adapter = HarryPotterAdapter(emptyList())
+    private lateinit var uiHandler: UiHandler
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,28 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setRecyclerView()
-        observeViewModel()
-    }
+        uiHandler = UiHandler(
+            context = this,
+            binding = binding,
+            lifecycleOwner = this,
+            viewModel = viewModel
+        )
 
-    private fun observeViewModel() {
-        viewModel.harryPotterData.observe(this) { items ->
-            adapter.updateData(items)
-        }
-        viewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.isVisible = isLoading
-        }
-
-        viewModel.error.observe(this) { errorMessage ->
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-
-        }
-    }
-
-    private fun setRecyclerView() {
-        binding.recyclerView .apply {
-            layoutManager = GridLayoutManager(this@MainActivity,3)
-            adapter = this@MainActivity.adapter
-        }
+        uiHandler.setupUi()
     }
 }

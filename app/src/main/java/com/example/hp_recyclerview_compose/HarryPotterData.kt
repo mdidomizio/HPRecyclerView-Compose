@@ -5,7 +5,7 @@ data class HarryPotterData(
     val image: String,
     val name: String,
     val actor: String,
-    val alive: Boolean,
+    val isAlive: Boolean,
     val alternateActors: List<String>,
     val alternateNames: List<String>,
     val ancestry: String,
@@ -13,13 +13,13 @@ data class HarryPotterData(
     val eyeColour: String,
     val gender: String,
     val hairColour: String,
-    val hogwartsStaff: Boolean,
-    val hogwartsStudent: Boolean,
+    val isHogwartsStaff: Boolean,
+    val isHogwartsStudent: Boolean,
     val house: String,
     val patronus: String,
     val species: String,
     val wand: Wand,
-    val wizard: Boolean,
+    val isWizard: Boolean,
     val yearOfBirth: String
 )
 

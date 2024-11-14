@@ -67,6 +67,8 @@ dependencies {
 
     // picasso for pics from url
     implementation (libs.picasso)
+    //glide
+    implementation (libs.glide)
 
     // for adding recyclerview
     implementation (libs.androidx.recyclerview)

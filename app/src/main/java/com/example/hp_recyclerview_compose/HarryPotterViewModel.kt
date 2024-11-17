@@ -4,31 +4,42 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HarryPotterViewModel(
     private val repository: HarryPotterRepository
 ) : ViewModel() {
-    private val _character = MutableLiveData<List<HarryPotterData>>()
-    val character: LiveData<List<HarryPotterData>> = _character
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+   /* private val _character = MutableLiveData<List<HarryPotterData>>()
+    val character: LiveData<List<HarryPotterData>> = _character*/
+    private val _uiState = MutableStateFlow(HarryPotterUiState(
+        data = TODO(),
+        isLoading = TODO(),
+        error = TODO()
+    )
+    )
+    val uiState: StateFlow<HarryPotterUiState> = _uiState.asStateFlow()
+
 
     init {
-        fetchApi()
+        loadItems()
     }
-    private fun fetchApi(){
+    private fun loadItems(){
         viewModelScope.launch {
-            _isLoading.value = true
             try {
-                val data = repository.getHarryPotterData()
-                _character.value = data
-                _isLoading.value = false
+                _uiState.update { it.copy(isLoading = true, error = null) }
+                val items = repository.getHarryPotterData()
+                _uiState.update { it.copy(isLoading = false, data = items) }
             } catch (e: Exception) {
-                _error.value = e.message ?: "An Error Occurred"
-                _isLoading.value = false
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = e.message ?: "An Error Occurred"
+                    )
+                }
             }
         }
     }

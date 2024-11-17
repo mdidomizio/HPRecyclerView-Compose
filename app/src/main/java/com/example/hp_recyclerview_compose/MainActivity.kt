@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 
@@ -30,7 +31,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.character.observe(this) { it ->
+        viewLifeCycleOwner.lyfecycleScope.launch{
+            viewLifeCycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect{ state ->
+                    when {
+                        state.isLoading -> showLoading()
+                        state.error != null -> showError(state.error)
+                        else -> showData(state.data)
+                    }
+                }
+
+            }
+        }
+
+        /*viewModel.character.observe(this) { it ->
             adapter.updateData(it)
         }
         viewModel.isLoading.observe(this) { isLoading ->
@@ -40,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.error.observe(this) { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
 
-        }
+        }*/
     }
 
     private fun setRecyclerView() {

@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 
 class HarryPotterViewModel : ViewModel() {
     private val repository = HarryPotterRepository()
-    private val _harryPotterData = MutableLiveData<List<HarryPotterData>>()
-    val harryPotterData: LiveData<List<HarryPotterData>> = _harryPotterData
+    private val _character = MutableLiveData<List<HarryPotterData>>()
+    val character: LiveData<List<HarryPotterData>> = _character
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     private val _error = MutableLiveData<String>()
@@ -23,7 +23,7 @@ class HarryPotterViewModel : ViewModel() {
             _isLoading.value = true
             try {
                 val data = repository.getHarryPotterData()
-                _harryPotterData.value = data
+                _character.value = data
                 _isLoading.value = false
             } catch (e: Exception) {
                 _error.value = e.message ?: "An Error Occurred"

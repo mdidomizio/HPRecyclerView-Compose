@@ -12,7 +12,7 @@ import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: HarryPotterViewModel by viewModels()
-    private val adapter = HarryPotterAdapter(emptyList())
+    private val adapter = HarryPotterAdapter(mutableListOf())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.harryPotterData.observe(this) { items ->
-            adapter.updateData(items)
+        viewModel.character.observe(this) { it ->
+            adapter.updateData(it)
         }
         viewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar.isVisible = isLoading

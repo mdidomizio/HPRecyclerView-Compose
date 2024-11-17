@@ -65,9 +65,7 @@ dependencies {
     implementation (libs.kotlinx.coroutines.android.v173)
     implementation (libs.kotlinx.coroutines.core)
 
-    // picasso for pics from url
-    implementation (libs.picasso)
-    //glide
+    // for pics from url
     implementation (libs.glide)
 
     // for adding recyclerview

@@ -7,13 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 
-class HarryPotterAdapter(private var data: List<HarryPotterData>) :
+class HarryPotterAdapter(private var data: MutableList<List<HarryPotterData>>) :
     RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
 
     fun updateData(newData: List<HarryPotterData>) {
-        data = newData
+        data.clear()
+        data.add(newData)
         notifyDataSetChanged()
     }
 
@@ -24,15 +24,17 @@ class HarryPotterAdapter(private var data: List<HarryPotterData>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        Glide.with(holder.itemView.context)
-            .load(item.image)
-            .into(holder.imageView)
-        holder.textView.text = item.name
+        val item = data.firstOrNull()?.getOrNull(position)
+        item?.let {
+            Glide.with(holder.itemView.context)
+                .load(it.image)
+                .into(holder.imageView)
+            holder.textView.text = it.name
+        }
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data.firstOrNull()?.size ?: 0
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

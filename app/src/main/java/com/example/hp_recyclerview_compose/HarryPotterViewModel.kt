@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class HarryPotterViewModel : ViewModel() {
-    private val repository = HarryPotterRepository()
+class HarryPotterViewModel(
+    private val repository: HarryPotterRepository
+) : ViewModel() {
     private val _character = MutableLiveData<List<HarryPotterData>>()
     val character: LiveData<List<HarryPotterData>> = _character
     private val _isLoading = MutableLiveData<Boolean>()

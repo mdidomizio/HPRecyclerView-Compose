@@ -11,8 +11,13 @@ import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: HarryPotterViewModel by viewModels()
     private val adapter = HarryPotterAdapter(mutableListOf())
+    private val repository: HarryPotterRepository by lazy {
+        HarryPotterRepository()
+    }
+    private val viewModel: HarryPotterViewModel by viewModels {
+        HarryPotterViewModelFactory(repository)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

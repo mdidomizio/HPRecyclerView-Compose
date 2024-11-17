@@ -29,4 +29,38 @@ data class Wand(
     val wood: String
 )
 
-data class ItemA(val textA: String):
+interface HouseBelonging {
+    enum class House(value: String) {
+        Slytherin("Slytherin"),
+        Gryffindor("Gryffindor"),
+        Ravenclaw("Ravenclaw"),
+        Hufflepuff("Hufflepuff")
+    }
+
+    fun getHouseBelonging(): String
+}
+
+data class Slytherin (val slitherin: String): HouseBelonging {
+    override fun getHouseBelonging(): String {
+        return HouseBelonging.House.Slytherin.toString()
+    }
+}
+
+data class Gryffindor (val gryffindor: String): HouseBelonging {
+    override fun getHouseBelonging(): String {
+        return HouseBelonging.House.Gryffindor.toString()
+    }
+}
+
+data class Ravenclaw (val ravenclaw: String): HouseBelonging {
+    override fun getHouseBelonging(): String {
+        return HouseBelonging.House.Ravenclaw.toString()
+    }
+}
+
+data class Hufflepuff (val hufflepuff: String): HouseBelonging {
+    override fun getHouseBelonging(): String {
+        return HouseBelonging.House.Hufflepuff.toString()
+    }
+}
+

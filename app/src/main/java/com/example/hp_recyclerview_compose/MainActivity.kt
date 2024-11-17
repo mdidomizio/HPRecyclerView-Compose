@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         binding.recyclerView .apply {
-            layoutManager = GridLayoutManager(this@MainActivity,3)
+            layoutManager = GridLayoutManager(this@MainActivity,2)
             adapter = this@MainActivity.adapter
         }
     }

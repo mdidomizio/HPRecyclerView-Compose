@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) :
-    RecyclerView.Adapter<HarryPotterAdapter.ViewHolderA>() {
+    RecyclerView.Adapter<HarryPotterAdapter.ViewHolderGryffindor>() {
 
     fun updateData(newData: List<HarryPotterData>) {
         items.clear()
@@ -17,28 +17,24 @@ class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) 
         notifyDataSetChanged()
     }
 
-    interface ListItem {
-        enum class Type(value: Int) { TypeA(0), TypeB(1) }
-        fun getListItemType(): Int
-    }
+    /*override fun getItemViewType(position: Int): Int {
+        //return items[position].get
+    }*/
 
-    override fun getItemViewType(position: Int): Int {
-        return items[position].ge
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderA {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderGryffindor {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.card_view_design, parent, false)
-        return ViewHolderA(view)
+        return ViewHolderGryffindor(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolderA, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolderGryffindor, position: Int) {
         val item = items.firstOrNull()?.getOrNull(position)
         item?.let {
             Glide.with(holder.itemView.context)
                 .load(it.image)
-                .into(holder.imageView)
-            holder.textView.text = it.name
+                .into(holder.imageCharacter)
+            holder.nameCharacter.text = it.name
+            holder.houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
         }
     }
 
@@ -46,10 +42,19 @@ class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) 
         return items.firstOrNull()?.size ?: 0
     }
 
-    class ViewHolderA(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.image_view)
-        val textView: TextView = itemView.findViewById(R.id.text_view)
+    class ViewHolderGryffindor(itemView: View) :  RecyclerView.ViewHolder (itemView) {
+        val imageCharacter: ImageView = itemView.findViewById(R.id.image_character)
+        val nameCharacter: TextView = itemView.findViewById(R.id.name_character)
+        val houseIcon: ImageView = itemView.findViewById(R.id.house_icone)
 
-        //override fun bind()
+       /* override fun bind(item: HarryPotterData) {
+            val gryffindorHouse = item.house as "Gryffindor"
+            houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
+        }*/
     }
+
+    /*abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        abstract fun bind(item: HarryPotterData)
+    }*/
 }
+

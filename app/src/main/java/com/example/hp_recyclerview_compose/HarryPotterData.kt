@@ -28,3 +28,5 @@ data class Wand(
     val length: Float,
     val wood: String
 )
+
+data class ItemA(val textA: String):

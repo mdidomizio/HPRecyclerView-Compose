@@ -8,23 +8,32 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class HarryPotterAdapter(private var data: MutableList<List<HarryPotterData>>) :
-    RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
+class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) :
+    RecyclerView.Adapter<HarryPotterAdapter.ViewHolderA>() {
 
     fun updateData(newData: List<HarryPotterData>) {
-        data.clear()
-        data.add(newData)
+        items.clear()
+        items.add(newData)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_view_design, parent, false)
-        return ViewHolder(view)
+    interface ListItem {
+        enum class Type(value: Int) { TypeA(0), TypeB(1) }
+        fun getListItemType(): Int
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data.firstOrNull()?.getOrNull(position)
+    override fun getItemViewType(position: Int): Int {
+        return items[position].ge
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderA {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.card_view_design, parent, false)
+        return ViewHolderA(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolderA, position: Int) {
+        val item = items.firstOrNull()?.getOrNull(position)
         item?.let {
             Glide.with(holder.itemView.context)
                 .load(it.image)
@@ -34,11 +43,13 @@ class HarryPotterAdapter(private var data: MutableList<List<HarryPotterData>>) :
     }
 
     override fun getItemCount(): Int {
-        return data.firstOrNull()?.size ?: 0
+        return items.firstOrNull()?.size ?: 0
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolderA(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val textView: TextView = itemView.findViewById(R.id.text_view)
+
+        //override fun bind()
     }
 }

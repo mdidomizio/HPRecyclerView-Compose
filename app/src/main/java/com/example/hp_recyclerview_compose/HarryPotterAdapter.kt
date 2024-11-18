@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) :
+class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) :
     RecyclerView.Adapter<HarryPotterAdapter.ViewHolderGryffindor>() {
 
     fun updateData(newData: List<HarryPotterData>) {
@@ -45,7 +45,7 @@ class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) 
     class ViewHolderGryffindor(itemView: View) :  RecyclerView.ViewHolder (itemView) {
         val imageCharacter: ImageView = itemView.findViewById(R.id.image_character)
         val nameCharacter: TextView = itemView.findViewById(R.id.name_character)
-        val houseIcon: ImageView = itemView.findViewById(R.id.house_icone)
+        val houseIcon: ImageView = itemView.findViewById(R.id.house_icon)
 
        /* override fun bind(item: HarryPotterData) {
             val gryffindorHouse = item.house as "Gryffindor"
@@ -53,8 +53,8 @@ class HarryPotterAdapter(private var items: MutableList<List<HarryPotterData>>) 
         }*/
     }
 
-    /*abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: HarryPotterData)
-    }*/
+    }
 }
 

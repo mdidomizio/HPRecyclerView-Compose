@@ -1,12 +1,15 @@
 package com.example.hp_recyclerview_compose
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,20 +29,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setRecyclerView()
-        observeViewModel()
+        observerUiState()
     }
 
-    private fun observeViewModel() {
-        viewModel.character.observe(this) { it ->
-            adapter.updateData(it)
-        }
-        viewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.isVisible = isLoading
-        }
+    private fun observerUiState () {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    binding.progressBar.isVisible = state.isLoading
+                    when {
+                        state.error != null -> {
+                            binding.recyclerView.isVisible = false
+                        }
+                        state.data.isNotEmpty() -> {
+                            binding.recyclerView.isVisible = true
+                            adapter.updateData(state.data)
+                        }
+                        else -> {
+                            binding.recyclerView.isVisible = false
+                        }
+                    }
+                }
 
-        viewModel.error.observe(this) { errorMessage ->
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-
+            }
         }
     }
 

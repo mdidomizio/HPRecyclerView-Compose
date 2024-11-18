@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setRecyclerView()
-        setupObserver()
+        observerUiState()
     }
 
-    private fun setupObserver() {
+    private fun observerUiState () {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->

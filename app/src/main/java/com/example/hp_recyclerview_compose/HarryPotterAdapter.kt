@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class HarryPotterAdapter(private var data: MutableList<List<HarryPotterData>>) :
+class HarryPotterAdapter(private val data: MutableList<List<HarryPotterData>>) :
     RecyclerView.Adapter<HarryPotterAdapter.ViewHolder>() {
 
     fun updateData(newData: List<HarryPotterData>) {

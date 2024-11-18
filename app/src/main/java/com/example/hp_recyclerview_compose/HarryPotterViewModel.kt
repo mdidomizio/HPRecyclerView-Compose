@@ -1,7 +1,5 @@
 package com.example.hp_recyclerview_compose
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,18 +7,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class HarryPotterViewModel(
     private val repository: HarryPotterRepository
 ) : ViewModel() {
-   /* private val _character = MutableLiveData<List<HarryPotterData>>()
-    val character: LiveData<List<HarryPotterData>> = _character*/
-    private val _uiState = MutableStateFlow(HarryPotterUiState(
-        data = TODO(),
-        isLoading = TODO(),
-        error = TODO()
-    )
-    )
+    private val _uiState = MutableStateFlow(HarryPotterUiState())
     val uiState: StateFlow<HarryPotterUiState> = _uiState.asStateFlow()
 
 
@@ -37,7 +30,12 @@ class HarryPotterViewModel(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        error = e.message ?: "An Error Occurred"
+                        error = when (e) {
+                            is UnknownHostException -> "No Internet connection"
+                            is SocketTimeoutException -> "Connection timed out"
+                            else -> "Failed to load items"
+
+                        }
                     )
                 }
             }

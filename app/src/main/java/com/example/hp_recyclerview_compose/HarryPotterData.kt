@@ -28,16 +28,3 @@ data class Wand(
     val length: Float,
     val wood: String
 )
-
-/*interface HouseBelonging {
-    enum class House(value: String) {
-        Slytherin("Slytherin"),
-        Gryffindor("Gryffindor"),
-        Ravenclaw("Ravenclaw"),
-        Hufflepuff("Hufflepuff")
-    }
-
-    fun getHouseBelonging(): String
-}*/
-
-

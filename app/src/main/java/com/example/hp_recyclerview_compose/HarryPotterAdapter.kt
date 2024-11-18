@@ -84,7 +84,14 @@ class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) 
         override fun bind(items: List<HarryPotterData>) {
             items.firstOrNull()?.let {
                 nameCharacter.text = it.name
-                houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
+                when (it.house) {
+                    "Gryffindor" -> houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
+                    "Slytherin" -> houseIcon.setImageResource(R.drawable.icons8_slytherin_64)
+                    "Hufflepuff" -> houseIcon.setImageResource(R.drawable.icons8_hufflepuff_64)
+                    "Ravenclaw" -> houseIcon.setImageResource(R.drawable.ic_launcher_foreground)
+                    else -> throw IllegalArgumentException("Invalid House Icon")
+                }
+
                 Glide.with(itemView.context)
                     .load(it.image)
                     .into(imageCharacter)

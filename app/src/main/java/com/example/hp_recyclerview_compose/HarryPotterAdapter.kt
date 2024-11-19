@@ -26,13 +26,13 @@ class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) 
         return when (viewType) {
             VIEW_TYPE_STAFF_TEXT -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.text_view_staff, parent, false)
+                    .inflate(R.layout.card_view_staff, parent, false)
                 return StaffViewHolder(view)
             }
 
             VIEW_TYPE_STUDENT_CARD -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.card_view_design, parent, false)
+                    .inflate(R.layout.card_view_student, parent, false)
                 return StudentViewHolder(view)
             }
 
@@ -71,9 +71,20 @@ class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) 
     override fun getItemViewType(position: Int): Int {
         return if (items[position].firstOrNull()?.isHogwartsStaff == true) {
             VIEW_TYPE_STAFF_TEXT
-        } else{
+        } else {
             VIEW_TYPE_STUDENT_CARD
         }
+
+       // val item = items[position].firstOrNull()
+        /*return if (item != null) {
+            if (item.isHogwartsStaff) {
+                VIEW_TYPE_STAFF_TEXT
+            } else if (item.isHogwartsStudent) {
+                VIEW_TYPE_STUDENT_CARD
+            } else {
+
+            }
+        }*/
     }
 
     class StudentViewHolder(itemView: View) : BaseViewHolder(itemView) {
@@ -84,14 +95,7 @@ class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) 
         override fun bind(items: List<HarryPotterData>) {
             items.firstOrNull()?.let {
                 nameCharacter.text = it.name
-                when (it.house) {
-                    "Gryffindor" -> houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
-                    "Slytherin" -> houseIcon.setImageResource(R.drawable.icons8_slytherin_64)
-                    "Hufflepuff" -> houseIcon.setImageResource(R.drawable.icons8_hufflepuff_64)
-                    "Ravenclaw" -> houseIcon.setImageResource(R.drawable.ic_launcher_foreground)
-                    else -> throw IllegalArgumentException("Invalid House Icon")
-                }
-
+                getHouseIcon (items, houseIcon, position)
                 Glide.with(itemView.context)
                     .load(it.image)
                     .into(imageCharacter)
@@ -102,16 +106,30 @@ class HarryPotterAdapter(private val items: MutableList<List<HarryPotterData>>) 
     class StaffViewHolder(itemView: View) : BaseViewHolder(itemView) {
         private val staffTitle: TextView = itemView.findViewById(R.id.staff_title)
         private val staffDescription: TextView = itemView.findViewById(R.id.staff_description)
+        private val staffIcon: ImageView = itemView.findViewById(R.id.house_icon_staff)
 
         override fun bind(items: List<HarryPotterData>) {
             items.firstOrNull()?.let {
                 staffTitle.text = itemView.context.getString(R.string.staff_title)
                 staffDescription.text = itemView.context.getString(R.string.staff_description)
+                getHouseIcon (items, staffIcon, position)
             }
         }
     }
 
     abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bind(items: List<HarryPotterData>)
+    }
+}
+
+fun getHouseIcon (items: List<HarryPotterData>, houseIcon: ImageView, position: Int ){
+    items[position].let {
+        when (items[position].house) {
+            "Gryffindor" -> houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
+            "Slytherin" -> houseIcon.setImageResource(R.drawable.icons8_slytherin_64)
+            "Hufflepuff" -> houseIcon.setImageResource(R.drawable.icons8_hufflepuff_64)
+            "Ravenclaw" -> houseIcon.setImageResource(R.drawable.ic_launcher_foreground)
+            else -> throw IllegalArgumentException("Invalid House Icon")
+        }
     }
 }

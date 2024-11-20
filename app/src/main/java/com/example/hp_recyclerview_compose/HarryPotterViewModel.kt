@@ -1,17 +1,12 @@
 package com.example.hp_recyclerview_compose
 
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 class HarryPotterViewModel(
     private val repository: HarryPotterRepository
@@ -30,8 +25,8 @@ class HarryPotterViewModel(
                 val characters = repository.getHarryPotterCharacters()
                 // creates list with headers and student
                 val items = mutableListOf<HarryPotterData>().apply {
-                    add(HarryPotterData.StudentsHeader("Hogwarts' Students"))
-                    addAll(characters.map {HarryPotterData.StudentItem(it)})
+                    add(HarryPotterData.ListHeader("Hogwarts' Students"))
+                    addAll(characters.map {HarryPotterData.CharacterItem(it)})
                 }
                 _uiState.update {
                     HarryPotterUiState.Success(items)

@@ -52,12 +52,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
+
+        val delegates = listOf(
+            StudentAdapterDelegate(),
+            HeaderAdapterDelegate()
+        )
+
+        val mixedItems = listOf(
+            Header("Hogwarts' Student"),
+            Header("Hogwarts' Staff"),
+        )
         binding.recyclerView .apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = HarryPotterAdapter { character ->
+            adapter = HarryPotterDelegationAdapter(mixedItems, delegates)
+            /*adapter = HarryPotterAdapter { character ->
                 println("Clicked character: ${character.name}")
-            }
-            adapter = this@MainActivity.adapter
+            }*/
+           // adapter = this@MainActivity.adapter
         }
     }
 }

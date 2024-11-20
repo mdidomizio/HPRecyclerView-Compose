@@ -4,5 +4,5 @@ import retrofit2.http.GET
 
 interface HarryPotterService {
     @GET("characters")
-    suspend fun getData(): List<HpStudent>
+    suspend fun getData(): List<HpCharacters>
 }

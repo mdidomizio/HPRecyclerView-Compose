@@ -1,19 +1,20 @@
 package com.example.hp_recyclerview_compose
 
-sealed class HarryPotterData {
-    data class StudentsHeader(val title: String) : HarryPotterData()
-    data class StudentItem(val student: HpStudent) : HarryPotterData()
-}
+data class HpCharacters(
+    val id: String,
+    val image: String,
+    val name: String,
+    val house: String,
+    val isHogwartsStudent: Boolean,
+    val patronus: String
+)
 
-    data class HpStudent(
-        val id: String,
-        val image: String,
-        val name: String,
-        val house: String,
-        val isHogwartsStudent: Boolean = true,
-        val patronus: String
-    )
+data class Header (val title: String)
 
+/*sealed class HarryPotterData {
+    data class ListHeader(val title: String) : HarryPotterData()
+    data class CharacterItem(val student: HpCharacters) : HarryPotterData()
+}*/
 
 
 

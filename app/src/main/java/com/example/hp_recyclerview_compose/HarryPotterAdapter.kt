@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class HarryPotterAdapter(
-    private val onCharacterClick: (HpStudent) -> Unit
+    private val onCharacterClick: (HpCharacters) -> Unit
 ) : RecyclerView.Adapter<HarryPotterAdapter.BaseViewHolder>() {
 
     private var items: List<HarryPotterData> = listOf()
@@ -26,8 +26,8 @@ class HarryPotterAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is HarryPotterData.StudentsHeader -> VIEW_TYPE_HEADER
-            is HarryPotterData.StudentItem -> VIEW_TYPE_STUDENT_BLOCK
+            is HarryPotterData.ListHeader -> VIEW_TYPE_HEADER
+            is HarryPotterData.CharacterItem -> VIEW_TYPE_STUDENT_BLOCK
         }
     }
 
@@ -49,8 +49,8 @@ class HarryPotterAdapter(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
       when (val item = items[position]) {
-          is HarryPotterData.StudentsHeader -> (holder as HeaderViewHolder).bind(item)
-          is HarryPotterData.StudentItem -> (holder as StudentViewHolder).bind(item)
+          is HarryPotterData.ListHeader -> (holder as HeaderViewHolder).bind(item)
+          is HarryPotterData.CharacterItem -> (holder as StudentViewHolder).bind(item)
       }
     }
 
@@ -63,7 +63,7 @@ class HarryPotterAdapter(
         private val nameCharacter: TextView = itemView.findViewById(R.id.name_character)
         private val houseIcon: ImageView = itemView.findViewById(R.id.house_icon)
 
-        override fun bind(item: HarryPotterData.StudentItem) {
+        override fun bind(item: HarryPotterData.CharacterItem) {
             val character = item.student
             nameCharacter.text = character.name
             getHouseIcon (item, houseIcon)
@@ -76,7 +76,7 @@ class HarryPotterAdapter(
 
     inner class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
         private val headerTextView: TextView = itemView.findViewById(R.id.header_text_view)
-        override fun bind(item: HarryPotterData.StudentsHeader) {
+        override fun bind(item: HarryPotterData.ListHeader) {
             headerTextView.text = item.title
         }
     }
@@ -100,7 +100,7 @@ class HarryPotterAdapter(
     }
 }
 
-fun getHouseIcon (item: HarryPotterData.StudentItem, houseIcon: ImageView ){
+fun getHouseIcon (item: HarryPotterData.CharacterItem, houseIcon: ImageView ){
         when (item.student.house) {
             "Gryffindor" -> houseIcon.setImageResource(R.drawable.icons8_gryffindor_64)
             "Slytherin" -> houseIcon.setImageResource(R.drawable.icons8_slytherin_64)

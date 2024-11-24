@@ -4,24 +4,21 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hp_recyclerview_compose.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter = HarryPotterAdapter(mutableListOf())
+    private lateinit var adapter: HarryPotterAdapter
     private val repository: HarryPotterRepository by lazy {
         HarryPotterRepository()
     }
     private val viewModel: HarryPotterViewModel by viewModels {
         HarryPotterViewModelFactory(repository)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,31 +31,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun observerUiState () {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    binding.progressBar.isVisible = state.isLoading
-                    when {
-                        state.error != null -> {
-                            binding.recyclerView.isVisible = false
-                        }
-                        state.data.isNotEmpty() -> {
-                            binding.recyclerView.isVisible = true
-                            adapter.updateData(state.data)
-                        }
-                        else -> {
-                            binding.recyclerView.isVisible = false
-                        }
+            viewModel.uiState.collect { state ->
+                when (state) {
+                    is HarryPotterUiState.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    is HarryPotterUiState.Success -> {
+                        binding.progressBar.isVisible = false
+                        binding.recyclerView.isVisible = true
+                        adapter.updateItems(state.items)
+                    }
+                    is HarryPotterUiState.Error -> {
+                        binding.recyclerView.isVisible = false
+                        println("Error: ${ state.message }")
+                    }
+
                     }
                 }
-
-            }
         }
     }
 
     private fun setRecyclerView() {
+
+        val delegates = listOf(
+            StudentAdapterDelegate(),
+            HeaderAdapterDelegate()
+        )
+
+        val mixedItems = listOf(
+            Header("Hogwarts' Student"),
+            Header("Hogwarts' Staff"),
+        )
         binding.recyclerView .apply {
-            layoutManager = GridLayoutManager(this@MainActivity,3)
-            adapter = this@MainActivity.adapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = HarryPotterDelegationAdapter(mixedItems, delegates)
+            /*adapter = HarryPotterAdapter { character ->
+                println("Clicked character: ${character.name}")
+            }*/
+           // adapter = this@MainActivity.adapter
         }
     }
 }

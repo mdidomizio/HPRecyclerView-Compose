@@ -7,38 +7,36 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 class HarryPotterViewModel(
     private val repository: HarryPotterRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(HarryPotterUiState())
+    private val _uiState = MutableStateFlow<HarryPotterUiState>(HarryPotterUiState.Loading)
     val uiState: StateFlow<HarryPotterUiState> = _uiState.asStateFlow()
 
 
     init {
-        loadItems()
+        fetchCharacters()
     }
-    private fun loadItems(){
+    private fun fetchCharacters(){
         viewModelScope.launch {
             try {
-                _uiState.update { it.copy(isLoading = true, error = null) }
-                val items = repository.getHarryPotterData()
-                _uiState.update { it.copy(isLoading = false, data = items) }
+                _uiState.value = HarryPotterUiState.Loading
+                val characters = repository.getHarryPotterCharacters()
+                // creates list with headers and student
+                val items = mutableListOf<HarryPotterData>().apply {
+                    add(HarryPotterData.ListHeader("Hogwarts' Students"))
+                    addAll(characters.map {HarryPotterData.CharacterItem(it)})
+                }
+                _uiState.update {
+                    HarryPotterUiState.Success(items)
+                }
             } catch (e: Exception) {
                 _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = when (e) {
-                            is UnknownHostException -> "No Internet connection"
-                            is SocketTimeoutException -> "Connection timed out"
-                            else -> "Failed to load items"
-
-                        }
-                    )
+                    HarryPotterUiState.Error(e.message ?: "Unknown error occurred")
                 }
             }
         }
     }
 }
+

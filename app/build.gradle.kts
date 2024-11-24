@@ -70,6 +70,8 @@ dependencies {
 
     // for adding recyclerview
     implementation (libs.androidx.recyclerview)
+    implementation (libs.androidx.recyclerview.v121)
 
-    implementation (libs.androidx.swiperefreshlayout)
+    //AdapterDelegate
+    implementation (libs.kotlin.stdlib.jdk8)
 }

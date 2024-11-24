@@ -4,7 +4,7 @@ class HarryPotterRepository {
 
     private val harryPotterService = RetrofitInstance.harryPotterService
 
-    suspend fun getHarryPotterData(): List<HarryPotterData> {
+    suspend fun getHarryPotterCharacters(): List<HpCharacters> {
         return harryPotterService.getData()
     }
 }

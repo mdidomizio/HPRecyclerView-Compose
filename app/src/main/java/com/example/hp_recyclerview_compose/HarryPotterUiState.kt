@@ -1,7 +1,7 @@
 package com.example.hp_recyclerview_compose
 
-data class HarryPotterUiState(
-    val data: List<HarryPotterData> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null
-)
+sealed class HarryPotterUiState{
+    data object Loading : HarryPotterUiState()
+    data class Success(val items: List<HarryPotterData>) : HarryPotterUiState()
+    data class Error(val message: String) : HarryPotterUiState()
+}

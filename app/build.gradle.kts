@@ -74,4 +74,5 @@ dependencies {
 
     //AdapterDelegate
     implementation (libs.kotlin.stdlib.jdk8)
+    implementation (libs.adapterdelegates4.kotlin.dsl.viewbinding)
 }

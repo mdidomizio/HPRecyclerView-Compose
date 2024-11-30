@@ -24,9 +24,9 @@ class HarryPotterViewModel(
                 _uiState.value = HarryPotterUiState.Loading
                 val characters = repository.getHarryPotterCharacters()
                 // creates list with headers and student
-                val items = mutableListOf<HarryPotterData>().apply {
-                    add(HarryPotterData.ListHeader("Hogwarts' Students"))
-                    addAll(characters.map {HarryPotterData.CharacterItem(it)})
+                val items = mutableListOf<ListItem>().apply {
+                    add(ListItem.ListHeader("Hogwarts' Students"))
+                    addAll(characters.map {ListItem.CharacterItem(it)})
                 }
                 _uiState.update {
                     HarryPotterUiState.Success(items)

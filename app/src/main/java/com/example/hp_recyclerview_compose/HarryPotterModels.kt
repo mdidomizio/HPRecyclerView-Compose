@@ -11,10 +11,10 @@ data class HpCharacters(
 
 data class Header (val title: String)
 
-/*sealed class HarryPotterData {
-    data class ListHeader(val title: String) : HarryPotterData()
-    data class CharacterItem(val student: HpCharacters) : HarryPotterData()
-}*/
+interface ListItem
+data class HeaderItem(val header: Header) : ListItem
+data class CharacterItem(val student: HpCharacters) : ListItem
+
 
 
 

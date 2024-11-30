@@ -36,7 +36,7 @@ class StudentAdapterDelegate : AdapterDelegate<Any> {
 
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_view_student, parent, false)
+            .inflate(R.layout.item_character_card_view, parent, false)
         return StudentViewHolder(view)
     }
 

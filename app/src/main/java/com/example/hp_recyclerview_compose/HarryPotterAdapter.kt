@@ -40,7 +40,7 @@ class HarryPotterAdapter(
             }
             VIEW_TYPE_STUDENT_BLOCK -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.card_view_student, parent, false)
+                    .inflate(R.layout.item_character_card_view, parent, false)
                 StudentViewHolder(view)
             }
             else -> throw IllegalArgumentException("Invalid ViewType")
